@@ -1,0 +1,20 @@
+git config --global core.excludesfile ~/.gitignore_global
+
+# Images #
+#########################
+
+*.tif
+*.jpg
+*.jpeg
+*.png
+
+# MATLAB Figures #
+#########################
+
+*.fig
+
+# Microsoft Office Files #
+#########################
+
+*.word
+*.pptx
