@@ -18,3 +18,7 @@ git config --global core.excludesfile ~/.gitignore_global
 
 *.word
 *.pptx
+
+# MATLAB Files #
+
+*main.m

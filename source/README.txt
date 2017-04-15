@@ -9,35 +9,44 @@ DEBUGGING
 When debugging, set parameter DEBUG in receptorCounter(~,~,debug) to the following debug commands:
 	- 'all': Spits out everything
 	- 'segmentation': Analyses only segmentation
+    -
 
 During production, set parameter DEBUG to 'none'.
 
-
 FORMAT
- - CHANGELOG:
- 	- Each changelog is marked down in the following notation:
- 		- vX.YY.ZZZ (DATE)
- 		- v: version
- 		- X: Major release version.
- 			- 0: Ongoing development. Not production ready
- 			- 1: Production ready
- 			- 2: Major upgrade to version 1 (pipe dream)
- 		- YY: Minor release version
- 			- Increments with every stable release.
- 			- If import
- 		- ZZZ: Test change
- 			- Up to the discerenary 
- 			- 
- 	-
+
+Each changelog is marked down in the following notation:
+- vX.YY.ZZZ (DATE)
+    - v: version
+    - X: Major release version.
+        - 0: Ongoing development. Not production ready
+        - 1: Production ready
+        - 2: Major upgrade to version 1 (pipe dream)
+    - YY: Minor release version
+        - Increments with every stable release.
+        - If import
+    - ZZZ: Test change
+        - Up to the discerenary 
+        - 
 
 CHANGELOG:
-v0.01.001 (14 April 2017)
+v0.01.001
  - Created this text file to log down changes
  - Created receptorCounter as the main function
  - Created main.m as the "main" function to run it
- - 
- -
+ - Created supporting functions
+ - Created PowerPoint presentation
+ - Put files into Git for code changes
 
-v0.02.001
+v0.01.002
+ - Fixed bug related to saving debugging files
+ - Fixed bug related to saving initial intensity segmentation
+
+GOAL:
+v0.01.003
+ - Determine which clusters is noise, capillaries, non-cells programmatically
+ - Save debug files
+
+v1.00.000 (Targetted)
  - A
  - A

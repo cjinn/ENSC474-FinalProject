@@ -31,7 +31,7 @@ temp_img = img;
 
 %% Initialisation of Parameter Variables
 % Modify this if you want to adjust how the function adjust
-k_factor = 6;
+k_factor = 12;
 iterations = 100;
 
 %% Initialisation of Debugging variables
@@ -44,7 +44,7 @@ if (strcmp(debug,'none') && ...
 end
 
 if ((strcmp(debug,'all') || strcmp(debug,'segmentation')) && ...
-        exist(['Debug' f_version '/Segmentation/' filename],'dir') ~= 7)
+        exist(['Debug/' f_version '/Segmentation/' filename],'dir') ~= 7)
     temp_img_initial_c{k_factor} = 0;
     mkdir(['Debug/' f_version '/Segmentation/' filename]);
 end
@@ -75,7 +75,7 @@ for ii=1:k_factor
         title(['Initial Segmented Image with k=' num2str(k_factor) ...
             ', Cluster ' num2str(ii)]);
         saveas(fig, ...
-            ['Debug/' f_version '/Segmentation/' filename '/segment_k_factor_' ... 
+            ['Debug/' f_version '/Segmentation/' filename '/segment_k_factor_initial_' ... 
             num2str(k_factor) '_cluster_' num2str(ii)], 'png');
         
         %% k-means Clustering
@@ -112,7 +112,7 @@ if (strcmp(debug,'all') || strcmp(debug,'segmentation'))
     imshow(im2uint8(temp_img));
     title('After Contour');
     saveas(fig, ...
-        ['Debug/' f_version 'Segmentation/' filename '/segment_final_result_iterations' ... 
+        ['Debug/' f_version '/Segmentation/' filename '/segment_final_result_iterations' ... 
         num2str(iterations) '_k_factor_' num2str(k_factor)], 'png');
 end
 
@@ -124,13 +124,13 @@ img_fft = getFFTImg(img);
 
 if (strcmp(debug,'all') || strcmp(debug,'fft'))
     if (exist(['Debug/' f_version '/FFT/' filename],'dir') ~= 7)
-        mkdir(['Debug/' f_version 'FFT/' filename]);
+        mkdir(['Debug/' f_version '/FFT/' filename]);
     end
     
     fig = figure('Name',['FFT of ' filename]);
     mesh(real(img_fft));
     title(['FFT of ' filename]);
-    saveas(fig, ['Debug/' f_version 'FFT/' filename '/original_fft'], 'png');
+    saveas(fig, ['Debug/' f_version '/FFT/' filename '/original_fft'], 'png');
 end
 
 %% Output
