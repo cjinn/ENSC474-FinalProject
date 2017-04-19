@@ -41,11 +41,21 @@ v0.01.001
 v0.01.002
  - Fixed bug related to saving debugging files
  - Fixed bug related to saving initial intensity segmentation
+ - Filters out the first two clusters
+ - Saved debug files in different folders based on version
+
+
+v0.01.003
+ - Filters out the first three clusters
+ - 
 
 GOAL:
-v0.01.003
- - Determine which clusters is noise, capillaries, non-cells programmatically
- - Save debug files
+v0.01.004
+ - Applies mask to the filtered image
+ - Maps out non-cell area
+
+v0.02.001
+ - Create validation data set on control group, "diseased" images, etc
 
 v1.00.000 (Targetted)
  - A

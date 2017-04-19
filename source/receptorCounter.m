@@ -31,11 +31,11 @@ temp_img = img;
 
 %% Initialisation of Parameter Variables
 % Modify this if you want to adjust how the function adjust
-k_factor = 12;
+k_factor = 16;
 iterations = 100;
 
 %% Initialisation of Debugging variables
-f_version = 'v0.01.002'; % Version of files
+f_version = 'v0.01.003'; % Version of files
 
 %% Initialisation for Debugging
 if (strcmp(debug,'none') && ...
@@ -94,7 +94,7 @@ for ii=1:k_factor
 end
 
 %% Isolating to get the photoreceptors
-unwanted_cluster = temp_img_c{1} + temp_img_c{2};
+unwanted_cluster = temp_img_c{1} + temp_img_c{2} + temp_img_c{3};
 temp_img = activecontour(img,unwanted_cluster,iterations);
 temp_img = imcomplement(temp_img); % Inverse colour it
 
