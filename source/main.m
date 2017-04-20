@@ -21,7 +21,13 @@ map{sizeImages} = 0;
 temp_img_c{sizeImages} = 0;
 
 %% Initialisation of Masks
-mask1 = [0 0 0;
+mask0 = [0 0 0;
+    0 1 0;
+    0 0 0];
+mask1 = [1 1 1;
+    0 3 0;
+    1 1 1];
+mask2 = [0 0 0;
     0 1 0;
     0 0 0];
 

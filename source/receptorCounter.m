@@ -241,6 +241,13 @@ end
 
 %% mask_image: 
 % Masks the image using a provided kernel.
+%
+% INPUT:
+% img - Image file
+% kernel - Matrix to apply mask towards
+%
+% OUTPUT:
+% new_img - New image after kernel has been applied to it
 function [new_img] = mask_image(img,kernel)
 %% Getting the sizes of the image and kernel
 [row,col] = size(img);
