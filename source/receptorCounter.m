@@ -119,7 +119,6 @@ end
 %% Applying Mask
 masked_img = mask_image(temp_img,mask);
 
-%% Debugging mask
 if (strcmp(debug,'all') || strcmp(debug,'mask'))
     if (~exist(['Debug/' f_version '/Mask/' filename],'dir'))
         mkdir(['Debug/' f_version '/Mask/' filename]);
