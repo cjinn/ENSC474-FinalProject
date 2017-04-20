@@ -35,10 +35,10 @@ k_factor = 16;
 iterations = 100;
 
 %% Initialisation of Debugging variables
-f_version = 'v0.01.003'; % Version of files
+f_version = 'v0.01.004'; % Version of files
 
 %% Initialisation for Debugging
-if (strcmp(debug,'none') && ...
+if (~strcmp(debug,'none') && ...
         exist(['Debug/' f_version],'dir') ~= 7)
     mkdir(['Debug/' f_version]);
 end
@@ -115,6 +115,28 @@ if (strcmp(debug,'all') || strcmp(debug,'segmentation'))
         ['Debug/' f_version '/Segmentation/' filename '/segment_final_result_iterations' ... 
         num2str(iterations) '_k_factor_' num2str(k_factor)], 'png');
 end
+
+%% Applying Mask
+masked_img = mask_image(temp_img,mask);
+
+%% Debugging mask
+if (strcmp(debug,'all') || strcmp(debug,'mask'))
+    if (~exist(['Debug/' f_version '/Mask/' filename],'dir'))
+        mkdir(['Debug/' f_version '/Mask/' filename]);
+    end
+    
+    fig = figure('Name', [filename ' Masked Image']);
+    subplot(1,2,1);
+    imshow(im2uint8(temp_img));
+    title('Before Masking');
+    subplot(1,2,2);
+    imshow(im2uint8(masked_img));
+    title('After Masking');
+    saveas(fig, ...
+        ['Debug/' f_version '/Mask/' filename '/' filename '_masked'], 'png');
+end
+
+temp_img = masked_img;
 
 %% Counting the number of photoreceptors
 photoCount = sum(sum(temp_img));
@@ -216,3 +238,182 @@ img_fft = fftshift(img_fft);
 notzeros = (img_fft ~= 0);
 img_fft(notzeros) = log10(abs(img_fft(notzeros)));
 end
+
+%% mask_image: 
+% Masks the image using a provided kernel.
+function [new_img] = mask_image(img,kernel)
+%% Getting the sizes of the image and kernel
+[row,col] = size(img);
+[k_row, k_col] = size(kernel);
+
+%% Error Checking
+if (k_row < 1 || k_col < 1 || row < 1 || col < 1)
+    new_img = img;
+    return;
+end
+
+%% Applying the kernel
+% 1x1 matrix
+if (k_row == 1 && k_col == 1)
+    new_img = kernel(1,1)*img;
+% MxN matrix where M & N are both odd numbers
+elseif (mod(k_row,2) == 1 && mod(k_col,2) == 1)
+    new_img = kernel_process_all_odd(img,kernel);
+% Reject where M & N are both not odd numbers
+else
+    new_img = img;
+%     new_img = kernel_process_even(img,kernel);
+end
+end
+
+%% kernel_process_all_odd:
+% Applies the kernel to the image. Assumes the kernel size is all odd numbers
+function [new_img] = kernel_process_all_odd(img,kernel)
+%% Initialisation
+[row,col] = size(img);
+[k_row, k_col] = size(kernel);
+
+k_row_mid = ceil(k_row/2);
+k_col_mid = ceil(k_col/2);
+
+new_img = zeros(row,col);
+
+%% Error Checking
+if (k_row < 1 || k_col < 1 || row < 1 || col < 1)
+    new_img = img;
+    return;
+end
+
+%% Processing
+for ii=1:row
+    for jj=1:col
+        temp = 0;
+        
+        for xx=(-k_row_mid+1):(k_row_mid-1)
+            new_ii = ii + xx;
+            new_xx = xx + k_row_mid;
+            for yy=(-k_col_mid+1):(k_col_mid-1)
+                new_jj = jj + yy;
+                new_yy = yy+k_col_mid;
+                
+                %% Only within image and kernel dimensions, and the kernel must have a non-zero value
+                if (new_ii > 0 && new_jj > 0 && ...
+                        new_ii <= row && new_jj <= col && ...
+                        new_xx > 0 && new_yy > 0 && ...
+                        new_xx <= k_row && new_yy <= k_col && ...
+                        kernel(new_xx,new_yy) ~= 0)
+                    temp = temp + kernel(new_xx,new_yy)*img(new_ii,new_jj);
+                end
+            end
+        end
+        
+        %% Storing the new pixel value
+        new_img(ii,jj) = temp;
+    end
+end
+end
+
+%% kernel_process_even:
+% Applies the kernel to the image. Assumes the kernel size has at least one
+% even number. More computational expensive.
+%% WORK IN PROGRESS
+% function [new_img] = kernel_process_even(img,kernel)
+% %% Initialising sizes and median for image and kernel, and new_img
+% [row,col] = size(img);
+% [k_row, k_col] = size(kernel);
+% k_row_mid = k_row/2;
+% k_col_mid = k_col/2;
+% depth = 4;
+% 
+% new_img = zeros(row,col);
+% temp_img = zeros(row,col,depth);
+% 
+% %% Error Checking
+% if (k_row < 1 || k_col < 1 || row < 1 || col < 1)
+%     new_img = img;
+%     return;
+% end
+% 
+% %% Adjusting variables depending if row/column is an even/odd size
+% % Odd Row
+% if (mod(k_row,2) == 0)
+%     k_row_mid = ceil(k_row_mid);
+%     k_row_begin = -k_row_mid+1;
+%     k_row_end = k_row_mid-1
+%     depth = 2;
+% % Even Row
+% else
+%     k_row_begin = -k_row_mid+1;
+%     k_row_end = k_row_mid;
+% end
+% 
+% % Odd Column
+% if (mod(k_col,2) == 0)
+%     k_col_mid = ceil(k_col_mid);
+%     k_col_begin = -k_col_mid+1;
+%     k_col_end = k_col_mid-1
+%     depth = 2;
+% % Even Column
+% else
+%     k_col_begin = -k_col_mid+1;
+%     k_col_end = k_col_mid;
+% end
+% 
+% %% Processing
+% for ii=1:row
+%     for jj=1:col
+%         num_elements = 0;
+%         temp = 0;
+%         
+%         for xx=k_row_begin:k_row_end
+%             new_ii = ii + xx;
+%             new_xx = xx + k_row_mid;
+%             for yy=k_col_begin:k_col_end
+%                 new_jj = jj + yy;
+%                 new_yy = yy+k_col_mid;
+%                 
+%                 %% Only within image and kernel dimensions, and the kernel must have a non-zero value
+%                 if (new_ii > 0 && new_jj > 0 && ...
+%                         new_ii <= row && new_jj <= col && ...
+%                         new_xx > 0 && new_yy > 0 && ...
+%                         new_xx <= k_row && new_yy <= k_col && ...
+%                         kernel(new_xx,new_yy) ~= 0)
+%                     temp = temp + kernel(new_xx,new_yy)*img(new_ii,new_jj);
+%                 end
+%             end
+%         end
+%         
+%         %% Storing the new pixel values
+%         if (num_elements > 0 && temp >= 0)
+%             % Stores them in depth to average them later
+%             for dd=1:depth
+%                 if (temp_img(ii,jj,dd) == 0)
+%                     temp_img(ii,jj,dd) = temp;
+%                 end
+%             end
+%         end
+%     end
+% end
+% 
+% %% Averaging the new values
+% for ii=1:row
+%     for jj=1:col
+%         temp = 0;
+%         dd = 0;
+%         for kk=1:depth
+%             if (temp_img(ii,jj,kk) ~= 0)
+%                 temp = temp + temp_img(ii,jj,kk);
+%                 dd = dd + 1;
+%             end
+%         end
+%         
+%         if (temp ~= 0 && dd ~= 0)
+%             temp = temp/dd;
+%         else
+%             temp = 0;
+%         end
+%         
+%         new_img(ii,jj) = temp;
+%     end
+% end
+% end

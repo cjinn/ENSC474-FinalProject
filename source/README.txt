@@ -47,13 +47,16 @@ v0.01.002
 
 v0.01.003
  - Filters out the first three clusters
- - 
 
-GOAL:
+
 v0.01.004
  - Applies mask to the filtered image
- - Maps out non-cell area
+ - Fixed bug where debugging folder is not created
 
+GOAL:
+v0.01.005
+ - Maps out non-cell area
+ 
 v0.02.001
  - Create validation data set on control group, "diseased" images, etc
 
