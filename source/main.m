@@ -27,16 +27,18 @@ mask0 = [0 0 0;
 mask1 = [1 1 1;
     0 3 0;
     1 1 1];
-mask2 = [0 0 0;
-    0 1 0;
-    0 0 0];
+mask2 = [4 0 4;
+    4 20 4;
+    4 0 4];
+
+%% Creation of diseased image
 
 %% Processing
 tic;
 for ii=1:sizeImages
     [~,filename] = fileparts(filenames{ii});
     [photo_count{ii},map{ii},temp_img_c{ii}] = ...
-        receptorCounter(images{ii},mask1,filename,'all');
+        receptorCounter(images{ii},mask2,filename,'all');
     close all;
 end
 toc
