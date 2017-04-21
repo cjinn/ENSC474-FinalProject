@@ -16,16 +16,6 @@
 % map - Quantity map of the photoreceptors. Same size as the mask
 %
 function [photoCount,map,temp_img_c] = receptorCounter(img,mask,filename,debug)
-%% Initialisation of Image Variables
-[sizeY,sizeX] = size(img);
-
-%% Initialisation of Mask Variables
-size_mask = size(mask);
-
-%% Initialisation of Output variables
-map = zeros(size_mask);
-photoCount = 0;
-
 %% Initialisation of Temporary variables
 temp_img = img;
 
@@ -138,7 +128,7 @@ end
 temp_img_c{k_factor + 1} = masked_img;
 
 %% Counting the number of photoreceptors
-photoCount = sum(sum(masked_img));
+photoCount = round(sum(sum(masked_img)));
 
 %% Mapping density
 density_img = label2rgb(masked_img,'colorcube');
