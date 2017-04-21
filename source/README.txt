@@ -52,13 +52,19 @@ v0.01.004
  - Applies mask (odd-numbered) to the filtered image
  - Fixed bug where debugging folder is not created
 
-GOAL:
 v0.01.005
- - Maps out non-cell area
+ - Turns masked image into map image using colour to indicate density
+ - Implemented writeImage into receptorCounter.m
+ - Exports map to folder 'Results'
 
+GOAL:
 v0.02.001
  - Create validation data set on control group, "diseased" images, etc
+ - Run tests with validation data set and note results
+
+v0.03.001
+ - Documented all processes and decisions
 
 v1.00.000 (Targetted)
- - A
- - A
+ - Completed documentation
+ - Ready for production

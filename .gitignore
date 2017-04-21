@@ -8,9 +8,10 @@ git config --global core.excludesfile ~/.gitignore_global
 *.jpeg
 *.png
 
-# MATLAB Figures #
+# MATLAB Files #
 #########################
 
+*.asv
 *.fig
 
 # Microsoft Office Files #
