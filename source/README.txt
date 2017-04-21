@@ -57,7 +57,6 @@ v0.01.005
  - Implemented writeImage into receptorCounter.m
  - Exports map to folder 'Results'
 
-GOAL:
 v0.02.001
  - Create validation data set on control group, "diseased" images, etc
  - Run tests with validation data set and note results

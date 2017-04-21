@@ -35,7 +35,7 @@ k_factor = 16;
 iterations = 100;
 
 %% Initialisation of Debugging variables
-f_version = 'v0.01.005'; % Version of files
+f_version = 'v0.01.006'; % Version of files
 
 %% Initialisation for Debugging
 if (~strcmp(debug,'none') && ...

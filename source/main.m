@@ -5,7 +5,18 @@
 clear all;
 close all;
 
-%% Creation of diseased image
+%% Initialisation of images
+filenames = {'image1.tif','image2.tif','image3.tif', ...
+    'image4.tif','image5.tif','image6.tif','image7.tif','image8.tif'};
+sizeImages = size(filenames,2);
+images{sizeImages} = 0;
+sizeY = 600; sizeX = 600; % Since the image filesize is given....
+
+for ii=1:sizeImages
+    images{ii} = readImg(['Images/' filenames{ii}]);
+end
+
+%% Creation of diseased images
 % for ii=1:1
 %     noisyImg = mat2gray(images{1});
 %     for xx=100:300
@@ -16,17 +27,27 @@ close all;
 %     end
 %     writeImage(noisyImg,'image6.tif','Images');
 % end
-
-%% Initialisation of images
-filenames = {'image1.tif','image2.tif','image3.tif', ...
-    'image4.tif','image5.tif','image6.tif'};
-sizeImages = size(filenames,2);
-images{sizeImages} = 0;
-sizeY = 600; sizeX = 600; % Since the image filesize is given....
-
-for ii=1:sizeImages
-    images{ii} = readImg(['Images/' filenames{ii}]);
-end
+% 
+% for ii=1:1
+%     noisyImg = mat2gray(images{1});
+%     for xx=1:sizeX
+%         for yy=1:sizeY
+%             factor = round(rand());
+%             noisyImg(yy,xx) = factor*noisyImg(yy,xx);
+%         end
+%     end
+%     writeImage(noisyImg,'image7.tif','Images');
+% end
+% 
+% for ii=1:1
+%     noisyImg = mat2gray(images{1});
+%     for xx=100:300
+%         for yy=100:300
+%             noisyImg(yy,xx) = 0;
+%         end
+%     end
+%     writeImage(noisyImg,'image8.tif','Images');
+% end
 
 %% Initalisation of result variables
 photo_count{sizeImages} = 0;
