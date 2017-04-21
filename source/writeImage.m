@@ -16,5 +16,5 @@ else
     img_filename = filename;
 end
 
-imwrite(temp_img, [img_filename '.jpg']);
+imwrite(temp_img, img_filename);
 end

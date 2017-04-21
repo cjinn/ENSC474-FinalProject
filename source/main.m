@@ -5,8 +5,21 @@
 clear all;
 close all;
 
+%% Creation of diseased image
+% for ii=1:1
+%     noisyImg = mat2gray(images{1});
+%     for xx=100:300
+%         for yy=100:300
+%             factor = round(rand());
+%             noisyImg(yy,xx) = factor*noisyImg(yy,xx);
+%         end
+%     end
+%     writeImage(noisyImg,'image6.tif','Images');
+% end
+
 %% Initialisation of images
-filenames = {'image1.tif','image2.tif','image3.tif','image4.tif','image5.tif'};
+filenames = {'image1.tif','image2.tif','image3.tif', ...
+    'image4.tif','image5.tif','image6.tif'};
 sizeImages = size(filenames,2);
 images{sizeImages} = 0;
 sizeY = 600; sizeX = 600; % Since the image filesize is given....
@@ -30,8 +43,6 @@ mask1 = [1 1 1;
 mask2 = [4 0 4;
     4 20 4;
     4 0 4];
-
-%% Creation of diseased image
 
 %% Processing
 tic;
