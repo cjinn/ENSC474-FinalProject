@@ -150,15 +150,18 @@ if (strcmp(debug,'all') || strcmp(debug,'map'))
     end
     
     fig = figure('Name', [filename ' Mapped Image']);
-    subplot(1,3,1);
+    subplot(2,2,1);
+    imshow(im2uint8(img));
+    title('Original Image');
+    subplot(2,2,2);
     imshow(im2uint8(masked_img));
-    title('Masked Image');
-    subplot(1,3,2);
+    title('Masked & Cleaned');
+    subplot(2,2,3);
     imshow(im2uint8(density_img));
-    title('Applying colour');
-    subplot(1,3,3);
+    title('Original Colour');
+    subplot(2,2,4);
     imshow(im2uint8(map));
-    title('Complemented colour');
+    title('Map (Final Result)');
     saveas(fig, ...
         ['Debug/' f_version '/Map/' filename ...
         '/' filename '_map'], 'png');   
