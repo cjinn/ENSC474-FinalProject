@@ -7,7 +7,8 @@ close all;
 
 %% Initialisation of images
 filenames = {'image1.tif','image2.tif','image3.tif', ...
-    'image4.tif','image5.tif','image6.tif','image7.tif','image8.tif'};
+    'image4.tif','image5.tif','image6.tif','image7.tif','image8.tif', ...
+    'image9.tif','image10.tif','image11.tif','image12.tif'};
 sizeImages = size(filenames,2);
 images{sizeImages} = 0;
 sizeY = 600; sizeX = 600; % Since the image filesize is given....
@@ -15,6 +16,10 @@ sizeY = 600; sizeX = 600; % Since the image filesize is given....
 for ii=1:sizeImages
     images{ii} = readImg(['Images/' filenames{ii}]);
 end
+
+%% Initialisation of filters
+filter_laplacian = fspecial('log');
+filter_average = fspecial('average');
 
 %% Creation of diseased images
 % for ii=1:1
@@ -48,6 +53,10 @@ end
 %     end
 %     writeImage(noisyImg,'image8.tif','Images');
 % end
+% writeImage(medfilt2(images{1}),'image9.tif','Images');
+% writeImage(imgaussfilt(images{1}),'image10.tif','Images');
+% writeImage(imfilter(images{1},filter_laplacian),'image11.tif','Images');
+% writeImage(imfilter(images{1},filter_average),'image12.tif','Images');
 
 %% Initalisation of result variables
 photo_count{sizeImages} = 0;

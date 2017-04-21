@@ -58,8 +58,14 @@ v0.01.005
  - Exports map to folder 'Results'
 
 v0.02.001
- - Create validation data set on control group, "diseased" images, etc
+ - Create validation data sets on control group to simulate "diseased" images, etc
  - Run tests with validation data set and note results
+ - Documented the processes and decisions on a PowerPoint Presentation.
+ - Tidied up this README.txt
+
+v0.02.002
+ - Create more validation data sets by using various filters
+ - Tidying up code for readability.
 
 v0.03.001
  - Documented all processes and decisions
